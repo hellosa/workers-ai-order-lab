@@ -7,7 +7,7 @@
 <body>
 <header><a href="/" class="brand">◈ ORDER LAB</a><span>WORKERS AI / EXPERIMENT 01</span></header>
 <main>
-<section class="intro"><p class="eyebrow">从订单事实，到售后决策</p><h1>让事实先说话。<br><span>再决定下一步。</span></h1><p>Clairic 提取结构化信息，Clef 根据你的规则判断退款、维修或人工审核。一次运行，看清两个阶段。</p><div class="pipeline"><b>01 · Clairic 提取</b><span>→</span><b>02 · Clef 决策</b></div></section>
+<section class="intro"><p class="eyebrow">从订单事实，到售后决策</p><h1>让事实先说话。<br><span>再决定下一步。</span></h1><p>Clairic 提取一次事实，Clef 与 Jev 按同一份规则并行判断。对比结果、耗时与 token 用量。</p><div class="pipeline"><b>01 · Clairic 提取</b><span>→</span><b>02 · Clef × Jev 对比</b></div></section>
 <div class="workspace"><form id="form" class="panel">
 <div class="section-title"><h2>测试输入</h2><button id="example" type="button" class="text-button">恢复示例 ↗</button></div>
 <label for="order">订单 / 客服消息 <small>最多 6000 字</small></label>
@@ -15,14 +15,14 @@
 <label for="policy">售后规则 <small>最多 2000 字</small></label>
 <textarea id="policy" maxlength="2000" rows="5" required></textarea>
 <label for="password">测试口令</label><input id="password" type="password" maxlength="512" autocomplete="off" placeholder="部署时设置的 LAB_PASSWORD" required>
-<p class="hint">口令仅用于本次请求，不保存到浏览器。输入将发送至 Cloudflare Workers AI。</p>
-<button class="run" id="run" type="submit">运行提取与决策 <span>→</span></button>
+<p class="hint">口令仅用于本次请求，不保存到浏览器。输入将发送至 Cloudflare Workers AI；Jev 是 TypeSafe 的第三方模型。</p>
+<button class="run" id="run" type="submit">运行模型对比 <span>→</span></button>
 <p id="status" role="status" aria-live="polite">准备就绪。使用虚构数据开始测试。</p>
 </form>
 <section class="panel results" aria-label="测试结果"><div class="section-title"><h2>运行结果</h2><span class="badge" id="badge">等待运行</span></div>
-<div id="empty"><div class="empty-mark">↗</div><h3>一条消息，两个视角</h3><p>左侧输入订单与规则。这里将展示提取字段、选项概率与实际用量。</p></div>
-<div id="output" hidden><div class="decision"><p class="eyebrow">CLEF 建议</p><h3 id="choice"></h3><p id="confidence"></p></div><div id="probabilities"></div><h3 class="result-heading">Clairic 提取的事实</h3><div class="table-wrap"><table><thead><tr><th>字段</th><th>值</th><th>置信度</th></tr></thead><tbody id="facts"></tbody></table></div><p id="usage" class="hint"></p><details><summary>查看原始 JSON</summary><pre id="raw"></pre></details></div>
+<div id="empty"><div class="empty-mark">↗</div><h3>相同事实，两种判断</h3><p>左侧输入订单与规则。这里将并排展示 Clef 与 Jev 的判断、概率、耗时与实际用量。</p></div>
+<div id="output" hidden><p id="agreement" class="comparison-note"></p><div id="comparison" class="comparison"></div><h3 class="result-heading">Clairic 提取的事实</h3><div class="table-wrap"><table><thead><tr><th>字段</th><th>值</th><th>置信度</th></tr></thead><tbody id="facts"></tbody></table></div><p id="usage" class="hint"></p><details><summary>查看原始 JSON</summary><pre id="raw"></pre></details></div>
 <p class="footnote">实验性模型的输出可能有误。概率不代表准确率；本页面仅提供建议，不执行退款或维修。</p>
 </section></div>
-</main><footer>Clairic → Clef <span>无聊天生成 · 结构化输出 · 规则可编辑</span></footer>
+</main><footer>Clairic → Clef × Jev <span>共享事实 · 并行对比 · 规则可编辑</span></footer>
 </body></html>
